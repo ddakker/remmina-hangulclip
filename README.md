@@ -1,3 +1,38 @@
+> [!WARNING]
+> **비공식 수정 버전입니다 / This is an unofficial modified version.**
+> Remmina 프로젝트와 관계없으며 공식 지원을 받지 않습니다.
+> It is not affiliated with or supported by the Remmina project.
+> 원본 / Upstream: https://gitlab.com/Remmina/Remmina
+
+## 수정 이유 / Why
+
+**한국어**
+Windows RDP 세션에서 한글을 복사해 VS Code, Chrome(Wayland) 등에 붙여넣으면 `\Uffffffff` 로 깨집니다.
+GTK 가 `TEXT`/`text/plain` 클립보드 형식을 Latin-1 로 변환하기 때문입니다.
+같은 문제를 다루는 업스트림 MR([!2773](https://gitlab.com/Remmina/Remmina/-/merge_requests/2773))이
+아직 병합되지 않아 직접 수정했습니다.
+
+**English**
+Korean text copied from a Windows RDP session is pasted as `\Uffffffff` in apps such as VS Code and
+Chrome on Wayland, because GTK converts the `TEXT`/`text/plain` targets to Latin-1.
+The upstream MR for this issue ([!2773](https://gitlab.com/Remmina/Remmina/-/merge_requests/2773))
+is not merged yet, so this fork carries its own fix.
+
+## 수정 내역 / Changes
+
+- `plugins/rdp/rdp_cliprdr.c`
+  - 서버가 CF_UNICODETEXT 를 주면 CF_TEXT(`TEXT`, `text/plain`)를 광고하지 않음
+  - Skip CF_TEXT targets when CF_UNICODETEXT is available
+- `build-rpm.sh`: Fedora 공식 spec 기반 로컬 RPM 빌드 / Local RPM build based on the Fedora spec
+- `docs-plan/`: 원인 분석 문서와 패치 파일 / Root cause notes and patch file
+
+빌드된 버전은 정보 창에 `1.4.43 (git <커밋>-hangulclip)` 으로 표시됩니다.
+Builds show `1.4.43 (git <commit>-hangulclip)` in the About dialog.
+
+라이선스는 원본과 같은 GPLv2+ 입니다. / Licensed under GPLv2+, same as upstream.
+
+---
+
 [![](https://img.shields.io/liberapay/receives/Remmina.svg?logo=liberapay)](https://liberapay.com/Remmina/donate)
 [![](https://img.shields.io/liberapay/patrons/remmina.svg?logo=liberapay)](https://liberapay.com/Remmina/donate)
 [![](https://opencollective.com/remmina/tiers/badge.svg)](https://opencollective.com/remmina)
