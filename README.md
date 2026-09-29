@@ -24,7 +24,16 @@ is not merged yet, so this fork carries its own fix.
   - 서버가 CF_UNICODETEXT 를 주면 CF_TEXT(`TEXT`, `text/plain`)를 광고하지 않음
   - Skip CF_TEXT targets when CF_UNICODETEXT is available
 - `build-rpm.sh`: Fedora 공식 spec 기반 로컬 RPM 빌드 / Local RPM build based on the Fedora spec
+- `build-deb.sh`: Ubuntu 공식 debian/ 기반 docker 컨테이너 deb 빌드 / Ubuntu .deb build in docker, based on the official debian/
 - `docs-plan/`: 원인 분석 문서와 패치 파일 / Root cause notes and patch file
+
+### Ubuntu 빌드·설치 / Build and install on Ubuntu
+
+```sh
+./build-deb.sh 24.04        # 또는 26.04 / or 26.04 (docker 필요 / requires docker)
+cd ../remmina-debbuild/24.04
+sudo apt install ./remmina_*.deb ./remmina-common_*.deb ./remmina-plugin-rdp_*.deb
+```
 
 빌드된 버전은 정보 창에 `1.4.43 (git <커밋>-hangulclip)` 으로 표시됩니다.
 Builds show `1.4.43 (git <commit>-hangulclip)` in the About dialog.
